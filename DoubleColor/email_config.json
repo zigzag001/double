@@ -6,14 +6,14 @@
   "use_ssl": true,
 
   "sender_name": "双色球AI预测",
-  "sender_email": "your_email@qq.com",
-  "smtp_password": "your_smtp_auth_code",
+  "sender_email": "2645501426@qq.com",
+  "smtp_password": "oqpszoffapaqebjb",
 
   "recipients": [
-    "your_email@qq.com"
+    "2645501426@qq.com"
   ],
 
   "subject_prefix": "[双色球AI预测]",
-  "dry_run": true,
+  "dry_run": false,
   "_dry_run_note": "true=只打印不发送；改为false后实际发送邮件"
 }
