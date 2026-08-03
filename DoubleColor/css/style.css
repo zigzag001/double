@@ -1,0 +1,1296 @@
+/* ==================== Variables ==================== */
+:root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+}
+
+/* ==================== Reset ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+                 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* ==================== Loading ==================== */
+.loading-screen {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 24px; height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* ==================== Navbar ==================== */
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 50;
+}
+
+.navbar-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+}
+
+.navbar-logo {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.navbar-title-wrapper {
+    display: flex; flex-direction: column;
+}
+
+.navbar-title {
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.navbar-title .highlight {
+    color: var(--red);
+}
+
+.navbar-subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.nav-items { display: none; gap: 4px; }
+
+.nav-item {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+}
+
+.nav-item svg { width: 14px; height: 14px; }
+.nav-item.active { background: var(--text); color: white; }
+.nav-item:not(.active):hover { background: var(--border-light); }
+
+@media (min-width: 768px) {
+    .nav-items { display: flex; }
+}
+
+/* Mobile Nav */
+.mobile-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-nav-content {
+    display: flex; justify-content: space-around;
+    height: 52px; width: 100%;
+}
+
+.mobile-nav-item {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+    gap: 2px;
+    background: none; border: none;
+    cursor: pointer; color: var(--text-muted);
+}
+
+.mobile-nav-item svg { width: 18px; height: 18px; }
+.mobile-nav-item span { font-size: 10px; font-weight: 500; }
+.mobile-nav-item.active { color: var(--red); }
+
+@media (min-width: 768px) { .mobile-nav { display: none; } }
+
+/* ==================== Main Content ==================== */
+.main-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+}
+
+@media (max-width: 767px) {
+    .main-content { margin-bottom: 52px; padding: 16px; }
+}
+
+/* ==================== Tab ==================== */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ==================== Hero Banner ==================== */
+.hero-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.hero-banner-grid {
+    display: flex; flex-direction: column;
+    gap: 12px;
+}
+
+.hero-badge-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.hero-badge-countdown {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.hero-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.hero-meta {
+    display: flex; flex-wrap: wrap;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.hero-meta-item {
+    display: flex; align-items: center; gap: 4px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--border-light);
+}
+
+.hero-meta-item svg { width: 13px; height: 13px; }
+
+.hero-date-badge {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+}
+
+.hero-date-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+@media (min-width: 768px) {
+    .hero-banner { padding: 24px; }
+    .hero-banner-grid {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+/* ==================== Info Card ==================== */
+.info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.info-card-icon {
+    color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.info-card-icon svg { width: 18px; height: 18px; }
+
+.info-card-content {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.info-card-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.info-card-content .highlight-red { color: var(--red); font-weight: 500; }
+.info-card-content .highlight-blue { color: var(--blue); font-weight: 500; }
+
+/* ==================== Model Cards ==================== */
+.models-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+    .models-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.model-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.model-card-header {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--text);
+    color: white;
+}
+
+.model-card-header-left {
+    display: flex; align-items: center; gap: 8px;
+}
+
+.model-icon-box {
+    padding: 4px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.15);
+}
+
+.model-icon-box svg { width: 16px; height: 16px; }
+
+.model-name-wrapper h3 {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.model-id {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Courier New', monospace;
+}
+
+.model-best-hit-badge {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    background: #fde68a;
+    color: #78350f;
+}
+
+.model-best-hit-badge svg { width: 10px; height: 10px; }
+
+.model-card-header-right { display: flex; align-items: center; gap: 8px; }
+
+.model-card-ticket-icon { color: rgba(255,255,255,0.1); }
+.model-card-ticket-icon svg { width: 32px; height: 32px; }
+
+.model-card-content { padding: 8px 14px 12px; }
+
+.strategy-group { display: flex; flex-direction: column; }
+
+/* Strategy Row */
+.strategy-row { padding: 10px 0; }
+.strategy-row:first-child { padding-top: 4px; }
+
+.strategy-header { margin-bottom: 6px; }
+
+.strategy-label-row {
+    display: flex; align-items: center; gap: 6px;
+}
+
+.strategy-group-badge {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 1px 6px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+}
+
+.strategy-group-badge.best {
+    color: #b45309;
+    border-color: #fde68a;
+    background: #fef3c7;
+}
+
+.strategy-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.strategy-hit-stats {
+    display: flex; gap: 6px;
+    margin-left: 4px;
+}
+
+.hit-stat {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.hit-stat.red { color: var(--red); }
+.hit-stat.blue { color: var(--blue); }
+.hit-stat.miss { color: var(--text-muted); }
+
+/* Balls */
+.strategy-balls {
+    display: flex;
+    gap: 6px;
+    padding: 4px 0;
+    margin-bottom: 6px;
+    overflow-x: auto;
+}
+
+.ball-divider {
+    width: 1px; height: 24px;
+    background: var(--border);
+    margin: 0 2px;
+    align-self: center;
+}
+
+.lottery-ball {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    flex-shrink: 0;
+}
+
+.lottery-ball.red {
+    background: var(--red);
+    color: white;
+}
+
+.lottery-ball.blue {
+    background: var(--blue);
+    color: white;
+}
+
+.lottery-ball.hit {
+    box-shadow: 0 0 0 2px #fde68a;
+}
+
+.lottery-ball.size-sm { width: 24px; height: 24px; font-size: 11px; }
+
+.strategy-description {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    padding: 6px 8px;
+    background: var(--border-light);
+    border-radius: 4px;
+}
+
+.strategy-separator {
+    border-bottom: 1px dashed var(--border);
+    margin: 0 8px;
+}
+
+/* ==================== Disclaimer ==================== */
+.disclaimer-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.disclaimer-card svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ==================== Section Header ==================== */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.section-icon {
+    padding: 6px;
+    border-radius: 6px;
+    background: var(--border-light);
+    color: var(--text-secondary);
+}
+
+.section-icon svg { width: 18px; height: 18px; }
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+/* ==================== History Section ==================== */
+.history-section { margin-bottom: 24px; }
+
+/* Stats Cards */
+.stats-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .stats-cards-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-card-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card-icon.red { background: var(--red-bg); color: var(--red); }
+.stat-card-icon.blue { background: var(--blue-bg); color: var(--blue); }
+.stat-card-icon.purple { background: #f3e8ff; color: #7c3aed; }
+.stat-card-icon.yellow { background: #fef3c7; color: #d97706; }
+
+.stat-card-icon svg { width: 16px; height: 16px; }
+
+.stat-card-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+.stat-card-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Charts */
+.analysis-charts-grid { display: flex; flex-direction: column; gap: 12px; }
+
+.chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.chart-icon svg { width: 16px; height: 16px; color: var(--text-secondary); }
+
+.chart-title-wrapper h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.chart-description {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.chart-canvas {
+    height: 200px;
+    position: relative;
+}
+
+/* ==================== Prize Rules ==================== */
+.prize-rules-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.prize-rules-header {
+    display: flex; align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.prize-rules-icon { color: var(--text-secondary); }
+.prize-rules-icon svg { width: 16px; height: 16px; }
+
+.prize-rules-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.prize-rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.prize-rule-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--border-light);
+    border-radius: 4px;
+}
+
+.prize-level {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 50px;
+}
+
+.prize-condition {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    background: white;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+.prize-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.prize-rules-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--blue-bg);
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--blue);
+    line-height: 1.5;
+}
+
+.prize-rules-note svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* ==================== Footer ==================== */
+.footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 16px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.footer-copyright {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.footer-disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* ==================== Accuracy Banner ==================== */
+.drawn-status-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.drawn-status-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #22c55e;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.drawn-status-icon svg { width: 14px; height: 14px; }
+
+.drawn-status-content { flex: 1; }
+
+.drawn-status-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #166534;
+    line-height: 1.3;
+}
+
+.drawn-status-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.drawn-status-balls {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+
+/* ==================== 字数频率 ==================== */
+.freq-section {
+    margin-top: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+
+.freq-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.freq-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.freq-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.freq-tables {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.freq-card {
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.freq-card-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--border-light);
+    border-bottom: 1px solid var(--border);
+}
+
+.freq-card-title .freq-card-sub {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.red { background: var(--red); }
+.dot.blue { background: var(--blue); }
+
+.freq-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.freq-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.freq-table th {
+    padding: 6px 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+}
+
+.freq-table th:first-child { text-align: left; }
+
+.freq-num-cell {
+    padding: 4px 12px;
+    font-family: 'Courier New', monospace;
+}
+
+.ball-dot {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    color: white;
+}
+
+.ball-dot.red { background: var(--red); }
+.ball-dot.blue { background: var(--blue); }
+
+.freq-cnt-cell {
+    padding: 4px 12px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.freq-pct-cell {
+    padding: 4px 12px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.combo-table th:first-child { text-align: center; }
+
+.freq-rank-cell {
+    padding: 4px 10px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+}
+
+.freq-balls-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 4px 10px;
+}
+
+.ball-plus {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.combo-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+.mini-result-ball {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Courier New', monospace;
+}
+
+.mini-result-ball.red { background: var(--red); color: white; }
+.mini-result-ball.blue { background: var(--blue); color: white; }
+
+/* Missing combinations */
+.dot.missing { background: var(--text-muted); }
+
+.missing-card .freq-card-title {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.freq-missing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 12px;
+    padding: 10px 12px;
+}
+
+@media (min-width: 480px) {
+    .freq-missing-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.freq-missing-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    background: white;
+}
+
+.freq-missing-item .ball-dot {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+}
+
+.freq-missing-count {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+}
+
+.freq-missing-empty {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: var(--emerald-600);
+    font-weight: 500;
+}
+
+
+/* ==================== Stats Tab ==================== */
+.tab-content[data-tab="stats"] {
+    display: none;
+}
+
+.tab-content[data-tab="stats"].active {
+    display: block;
+}
+
+.stats-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.stats-summary-value {
+    font-weight: 600;
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+}
+
+.stats-summary-dot {
+    margin: 0 4px;
+    color: var(--border);
+}
+
+.wide-card .freq-card-title {
+    background: var(--border-light);
+}
+
+.triple-table .freq-balls-cell {
+    gap: 4px;
+}
+
+.triple-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+/* ==================== Double (2红一蓝) Tab ==================== */
+
+.double-table-section {
+    margin-bottom: 16px;
+}
+
+.double-table {
+    font-size: 13px;
+}
+
+.double-table .freq-balls-cell {
+    gap: 4px;
+}
+
+.double-table tbody tr:hover,
+.double-combo-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.double-combo-table {
+    font-size: 13px;
+}
+
+.double-combo-table .freq-balls-cell {
+    gap: 4px;
+}
+
+.double-missing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 14px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.double-missing-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: var(--border-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.double-missing-item .ball-dot {
+    font-weight: 600;
+}
+
+.ball-plus {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin: 0 2px;
+}
+
+.freq-missing-count {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.double-table th:first-child,
+.double-combo-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.double-table .freq-cnt-cell,
+.double-combo-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+/* ==================== Triple Missing Combos ==================== */
+
+.missing-3ball-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.missing-3ball-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.missing-3ball-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.missing-3ball-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--red);
+    font-family: 'Courier New', monospace;
+}
+
+.missing-combos-card {
+    margin-bottom: 16px;
+}
+
+.missing-combos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.missing-combo-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 9px;
+    background: var(--border-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.missing-combo-item .ball-dot {
+    font-weight: 600;
+}
+
+.missing-combos-empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.missing-combos-more {
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-style: italic;
+}
+
+.missing-pairs-card {
+    margin-bottom: 16px;
+}
+
+.missing-pairs-table {
+    font-size: 13px;
+}
+
+.missing-pairs-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.missing-pairs-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.missing-pairs-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+@media (max-width: 767px) {
+    .missing-3ball-summary {
+        grid-template-columns: 1fr;
+    }
+    .missing-3ball-value {
+        font-size: 18px;
+    }
+}
+
+/* ==================== Quad (四球) Tab ==================== */
+
+.quad-table {
+    font-size: 12px;
+}
+
+.quad-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.quad-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.quad-table .freq-balls-cell {
+    gap: 3px;
+}
+
+.quad-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+.missing-triples-card {
+    margin-bottom: 16px;
+}
+
+.missing-triples-table {
+    font-size: 13px;
+}
+
+.missing-triples-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.missing-triples-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.missing-triples-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+.missing-triples-table .freq-balls-cell {
+    gap: 4px;
+}
+
+/* ==================== Quint & Sextet Tab ==================== */
+
+.quint-table,
+.sextet-table {
+    font-size: 11px;
+}
+
+.quint-table tbody tr:hover,
+.sextet-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.quint-table th:first-child,
+.sextet-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.quint-table .freq-balls-cell,
+.sextet-table .freq-balls-cell {
+    gap: 3px;
+}
+
+.quint-table .freq-cnt-cell,
+.sextet-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+.missing-fours-card,
+.missing-fives-card {
+    margin-bottom: 16px;
+}
+
+.missing-fours-table,
+.missing-fives-table {
+    font-size: 13px;
+}
+
+.missing-fours-table tbody tr:hover,
+.missing-fives-table tbody tr:hover {
+    background: var(--border-light);
+}
+
+.missing-fours-table th:first-child,
+.missing-fives-table th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+.missing-fours-table .freq-cnt-cell,
+.missing-fives-table .freq-cnt-cell {
+    font-weight: 500;
+}
+
+.missing-fours-table .freq-balls-cell,
+.missing-fives-table .freq-balls-cell {
+    gap: 3px;
+}
+
+/* Heavy-computation loading indicator */
+.computing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.computing-indicator .loading-spinner {
+    width: 18px;
+    height: 18px;
+}
+
+/* Mobile bottom nav: 5 items at 20% */
+@media (max-width: 767px) {
+    .mobile-nav-item { width: 20%; }
+}
+

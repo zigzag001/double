@@ -1,0 +1,19 @@
+{
+  "_comment": "邮箱推送配置 — 请修改为实际配置后使用",
+
+  "smtp_host": "smtp.qq.com",
+  "smtp_port": 465,
+  "use_ssl": true,
+
+  "sender_name": "双色球AI预测",
+  "sender_email": "your_email@qq.com",
+  "smtp_password": "your_smtp_auth_code",
+
+  "recipients": [
+    "your_email@qq.com"
+  ],
+
+  "subject_prefix": "[双色球AI预测]",
+  "dry_run": true,
+  "_dry_run_note": "true=只打印不发送；改为false后实际发送邮件"
+}

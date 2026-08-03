@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双色球 AI 预测</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260807">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">加载数据中...</p>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-content">
+                    <div class="navbar-brand">
+                        <div class="navbar-logo">🎟️</div>
+                        <div class="navbar-title-wrapper">
+                            <span class="navbar-title">
+                                双色球<span class="highlight">AI</span>预测
+                            </span>
+                            <span class="navbar-subtitle">Double Color Ball</span>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Nav -->
+                    <div class="nav-items">
+                        <button class="nav-item active" data-tab="prediction">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>
+                            </svg>
+                            最新预测
+                        </button>
+                        <button class="nav-item" data-tab="double">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="12" r="4"/><circle cx="16" cy="12" r="3"/>
+                            </svg>
+                            2红一蓝
+                        </button>
+                        <button class="nav-item" data-tab="triple">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="7" cy="12" r="3"/><circle cx="12" cy="8" r="3"/><circle cx="17" cy="12" r="3"/>
+                            </svg>
+                            三球统计
+                        </button>
+                        <button class="nav-item" data-tab="quad">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="6" cy="12" r="3"/><circle cx="12" cy="6" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="12" cy="18" r="3"/>
+                            </svg>
+                            四球统计
+                        </button>
+                        <button class="nav-item" data-tab="quint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="5" r="3"/><circle cx="5" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="12" cy="19" r="3"/>
+                            </svg>
+                            五球统计
+                        </button>
+                        <button class="nav-item" data-tab="sextet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="4" r="2.5"/><circle cx="5.5" cy="9" r="2.5"/><circle cx="18.5" cy="9" r="2.5"/><circle cx="5.5" cy="15" r="2.5"/><circle cx="18.5" cy="15" r="2.5"/><circle cx="12" cy="20" r="2.5"/>
+                            </svg>
+                            六球统计
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Bottom Nav -->
+        <div class="mobile-nav">
+            <div class="mobile-nav-content">
+                <button class="mobile-nav-item active" data-tab="prediction">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>
+                    </svg>
+                    <span>预测</span>
+                </button>
+                <button class="mobile-nav-item" data-tab="double">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="12" r="4"/><circle cx="16" cy="12" r="3"/>
+                    </svg>
+                    <span>2红1蓝</span>
+                </button>
+                <button class="mobile-nav-item" data-tab="triple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="7" cy="12" r="3"/><circle cx="12" cy="8" r="3"/><circle cx="17" cy="12" r="3"/>
+                    </svg>
+                    <span>三球</span>
+                </button>
+                <button class="mobile-nav-item" data-tab="quad">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="6" cy="12" r="3"/><circle cx="12" cy="6" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="12" cy="18" r="3"/>
+                    </svg>
+                    <span>四球</span>
+                </button>
+                <button class="mobile-nav-item" data-tab="quint">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="5" r="3"/><circle cx="5" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="12" cy="19" r="3"/>
+                    </svg>
+                    <span>五球</span>
+                </button>
+                <button class="mobile-nav-item" data-tab="sextet">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="4" r="2.5"/><circle cx="5.5" cy="9" r="2.5"/><circle cx="18.5" cy="9" r="2.5"/><circle cx="5.5" cy="15" r="2.5"/><circle cx="18.5" cy="15" r="2.5"/><circle cx="12" cy="20" r="2.5"/>
+                    </svg>
+                    <span>六球</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tab: Prediction Dashboard -->
+            <div class="tab-content active" data-tab="prediction">
+                <!-- Hero Banner -->
+                <div class="hero-banner">
+                    <div class="hero-banner-blur-1"></div>
+                    <div class="hero-banner-blur-2"></div>
+                    <div class="hero-banner-content">
+                        <div class="hero-banner-grid">
+                            <div>
+                                <div class="hero-banner-badge">
+                                    <span class="hero-badge-tag">Next Draw</span>
+                                    <span class="hero-badge-countdown" id="heroCountdown">距离开奖仅剩 2 天</span>
+                                </div>
+                                <h2 class="hero-title">
+                                    第 <span id="heroPeriod">-</span> 期
+                                    <span class="hero-title-gradient">预测发布</span>
+                                </h2>
+                                <div class="hero-meta">
+                                    <div class="hero-meta-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+                                        </svg>
+                                        <span id="heroDateDisplay">-</span>
+                                    </div>
+                                    <div class="hero-meta-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                                        </svg>
+                                        <span id="heroDrawTime">21:15 开奖</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="hero-date-badge" id="heroPredictionDate">-</div>
+                                <div class="hero-date-label">Model Updated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+                        </svg>
+                    </div>
+                    <div class="info-card-content">
+                        <h3 class="info-card-title">本期 AI 策略说明</h3>
+                        <p>本期预测基于 <strong>sensenova-6.7-flash-lite</strong> 模型，结合近 30 期历史数据进行加权分析，采用增强型策略生成 5 组预测号码，重点融合了<span class="highlight-red">热号追随</span>、<span class="highlight-blue">冷号逆向</span>及周期理论，旨在捕捉号码的均值回归与趋势延续。</p>
+                    </div>
+                </div>
+
+                <!-- Models Grid -->
+                <div class="models-grid" id="modelsGrid"></div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                    </svg>
+                    <span>AI 预测结果仅供参考，不代表最终开奖结果</span>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>
+                            </svg>
+                        </div>
+                        <h2 class="section-title">历史数据</h2>
+                    </div>
+
+                    <div class="stats-cards-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-icon red">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <div class="stat-card-content">
+                                <div class="stat-card-label">数据样本</div>
+                                <div class="stat-card-value" id="statTotalDraws">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+                                </svg>
+                            </div>
+                            <div class="stat-card-content">
+                                <div class="stat-card-label">最热红球</div>
+                                <div class="stat-card-value" id="statHottestRed">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon purple">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3v18h18"/><path d="m7 15 5-5 5 5"/>
+                                </svg>
+                            </div>
+                            <div class="stat-card-content">
+                                <div class="stat-card-label">最热蓝球</div>
+                                <div class="stat-card-value" id="statHottestBlue">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon yellow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M2 12h20"/>
+                                </svg>
+                            </div>
+                            <div class="stat-card-content">
+                                <div class="stat-card-label">平均和值</div>
+                                <div class="stat-card-value" id="statAvgSum">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 字数频率 Section -->
+                    <div class="freq-section">
+                        <div class="freq-header">
+                            <h3>字数频率</h3>
+                            <span class="freq-subtitle">基于全部 <span id="freqTotalDraws">-</span> 期历史数据</span>
+                        </div>
+
+                        <div class="freq-tables">
+                            <div class="freq-card">
+                                <div class="freq-card-title"><span class="dot red"></span>红球 01-33 <span class="freq-card-sub">按出现次数排序</span></div>
+                                <table class="freq-table">
+                                    <tbody id="freqRedTable"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="freq-card">
+                                <div class="freq-card-title"><span class="dot blue"></span>蓝球 01-16 <span class="freq-card-sub">按出现次数排序</span></div>
+                                <table class="freq-table">
+                                    <tbody id="freqBlueTable"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="freq-card combo-card">
+                                <div class="freq-card-title">红球对 + 蓝球 组合频率 <span class="freq-card-sub">Top 30</span></div>
+                                <table class="freq-table combo-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>号码</th>
+                                            <th>次数</th>
+                                            <th>频率</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="freqComboTable"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="freq-card missing-card">
+                                <div class="freq-card-title"><span class="dot missing"></span>未出现的组合 <span class="freq-card-sub" id="freqMissingInfo">0 / 8448 种</span></div>
+                                <div class="freq-missing-grid" id="freqMissingGrid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Double (2红一蓝) -->
+            <div class="tab-content" data-tab="double">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="12" r="4"/><circle cx="16" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h2 class="section-title">两红一蓝</h2>
+                </div>
+
+                <div class="stats-summary">
+                    <span class="stats-summary-label">基于全部</span>
+                    <span class="stats-summary-value" id="statDoubleTotal">-</span>
+                    <span class="stats-summary-label">期历史数据</span>
+                    <span class="stats-summary-dot">·</span>
+                    <span class="stats-summary-label">红球对 C(33,2) 共</span>
+                    <span class="stats-summary-value">496</span>
+                    <span class="stats-summary-label">种 · 红对+蓝 共</span>
+                    <span class="stats-summary-value">7,936</span>
+                    <span class="stats-summary-label">种</span>
+                </div>
+
+                <div class="double-table-section">
+                    <div class="stat-card wide-card">
+                        <div class="freq-card-title"><span class="dot red"></span>红球对出现次数 <span class="freq-card-sub">Top 50</span></div>
+                        <table class="freq-table double-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>号码</th>
+                                    <th>次数</th>
+                                    <th>频率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doublePairTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="double-table-section">
+                    <div class="stat-card wide-card">
+                        <div class="freq-card-title"><span class="dot red"></span>红球对 + 蓝球 组合 <span class="freq-card-sub">Top 30</span></div>
+                        <table class="freq-table double-combo-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>号码</th>
+                                    <th>次数</th>
+                                    <th>频率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doubleComboTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="double-table-section">
+                    <div class="stat-card wide-card">
+                        <div class="freq-card-title"><span class="dot missing"></span>未出现的红球对 <span class="freq-card-sub" id="doubleMissingInfo">0 / 496 种</span></div>
+                        <div class="double-missing-grid" id="doubleMissingGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Triple (三球) -->
+            <div class="tab-content" data-tab="triple">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>
+                        </svg>
+                    </div>
+                    <h2 class="section-title">三球统计</h2>
+                </div>
+
+                <div class="stats-summary">
+                    <span class="stats-summary-label">基于全部</span>
+                    <span class="stats-summary-value" id="statTriTotal">-</span>
+                    <span class="stats-summary-label">期历史数据</span>
+                    <span class="stats-summary-dot">·</span>
+                    <span class="stats-summary-label">C(33,3) 共</span>
+                    <span class="stats-summary-value" id="statTripleTotal">-</span>
+                    <span class="stats-summary-label">种可能</span>
+                    <span class="stats-summary-label">种可能</span>
+                </div>
+
+                <div class="stat-card wide-card">
+                    <div class="freq-card-title"><span class="dot red"></span>三个红球组合出现次数 <span class="freq-card-sub">Top 100</span></div>
+                    <table class="freq-table triple-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>次数</th>
+                                <th>频率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="freqTripleTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="missing-3ball-summary">
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">C(33,3) 总组合数</span>
+                        <span class="missing-3ball-value" id="statTripleAll">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">已出现组合数</span>
+                        <span class="missing-3ball-value" id="statTripleSeen">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">从未出现组合数</span>
+                        <span class="missing-3ball-value" id="statTripleMissing">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card wide-card missing-combos-card">
+                    <div class="freq-card-title">
+                        <span class="dot missing"></span>从未出现的三个红球组合 <span class="freq-card-sub" id="missingComboCount">-</span>
+                    </div>
+                    <div class="missing-combos-grid" id="missingCombosGrid"></div>
+                </div>
+
+                <div class="stat-card wide-card missing-pairs-card">
+                    <div class="freq-card-title">
+                        <span class="dot red"></span>从未出现组合中的2球组合 <span class="freq-card-sub">Top 100（按在缺失组合中的出现次数）</span>
+                    </div>
+                    <table class="freq-table missing-pairs-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>出现次数</th>
+                                <th>占比</th>
+                            </tr>
+                        </thead>
+                        <tbody id="missingPairsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Quad (四球统计) -->
+            <div class="tab-content" data-tab="quad">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="6" cy="12" r="3"/><circle cx="12" cy="6" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="12" cy="18" r="3"/>
+                        </svg>
+                    </div>
+                    <h2 class="section-title">四球统计</h2>
+                </div>
+
+                <div class="stats-summary">
+                    <span class="stats-summary-label">基于全部</span>
+                    <span class="stats-summary-value" id="statQuadTotal">-</span>
+                    <span class="stats-summary-label">期历史数据</span>
+                    <span class="stats-summary-dot">·</span>
+                    <span class="stats-summary-label">C(33,4) 共</span>
+                    <span class="stats-summary-value" id="statQuadPossible">-</span>
+                    <span class="stats-summary-label">种可能</span>
+                </div>
+
+                <div class="missing-3ball-summary">
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">C(33,4) 总组合数</span>
+                        <span class="missing-3ball-value" id="statQuadAll">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">已出现组合数</span>
+                        <span class="missing-3ball-value" id="statQuadSeen">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">从未出现组合数</span>
+                        <span class="missing-3ball-value" id="statQuadMissing">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card wide-card">
+                    <div class="freq-card-title"><span class="dot red"></span>四个红球组合出现次数 <span class="freq-card-sub">Top 100</span></div>
+                    <table class="freq-table quad-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>次数</th>
+                                <th>频率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="freqQuadTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="stat-card wide-card missing-combos-card">
+                    <div class="freq-card-title">
+                        <span class="dot missing"></span>从未出现的四个红球组合 <span class="freq-card-sub" id="quadMissingCount">-</span>
+                    </div>
+                    <div class="missing-combos-grid" id="quadMissingCombosGrid"></div>
+                </div>
+
+                <div class="stat-card wide-card missing-triples-card">
+                    <div class="freq-card-title">
+                        <span class="dot red"></span>从未出现四球组合中的3球组合 <span class="freq-card-sub">Top 100（按在缺失组合中的出现次数）</span>
+                    </div>
+                    <table class="freq-table missing-triples-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>出现次数</th>
+                                <th>占比</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quadMissingTriplesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Quint (五球统计) -->
+            <div class="tab-content" data-tab="quint">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="3"/><circle cx="5" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="12" cy="19" r="3"/>
+                        </svg>
+                    </div>
+                    <h2 class="section-title">五球统计</h2>
+                </div>
+
+                <div class="stats-summary">
+                    <span class="stats-summary-label">基于全部</span>
+                    <span class="stats-summary-value" id="statQuintTotal">-</span>
+                    <span class="stats-summary-label">期历史数据</span>
+                    <span class="stats-summary-dot">·</span>
+                    <span class="stats-summary-label">C(33,5) 共</span>
+                    <span class="stats-summary-value" id="statQuintPossible">-</span>
+                    <span class="stats-summary-label">种可能</span>
+                </div>
+
+                <div class="computing-indicator" id="quintComputingIndicator">
+                    <div class="loading-spinner"></div>
+                    <span>正在计算 C(33,5) 所有组合，请稍候…</span>
+                </div>
+
+                <div class="missing-3ball-summary">
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">C(33,5) 总组合数</span>
+                        <span class="missing-3ball-value" id="statQuintAll">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">已出现组合数</span>
+                        <span class="missing-3ball-value" id="statQuintSeen">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">从未出现组合数</span>
+                        <span class="missing-3ball-value" id="statQuintMissing">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card wide-card">
+                    <div class="freq-card-title"><span class="dot red"></span>五个红球组合出现次数 <span class="freq-card-sub">Top 100</span></div>
+                    <table class="freq-table quint-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>次数</th>
+                                <th>频率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="freqQuintTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="stat-card wide-card missing-combos-card">
+                    <div class="freq-card-title">
+                        <span class="dot missing"></span>从未出现的五个红球组合 <span class="freq-card-sub" id="quintMissingCount">-</span>
+                    </div>
+                    <div class="missing-combos-grid" id="quintMissingCombosGrid"></div>
+                </div>
+
+                <div class="stat-card wide-card missing-fours-card">
+                    <div class="freq-card-title">
+                        <span class="dot red"></span>从未出现五球组合中的4球组合 <span class="freq-card-sub">Top 100（按在缺失组合中的出现次数）</span>
+                    </div>
+                    <table class="freq-table missing-fours-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>出现次数</th>
+                                <th>占比</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quintMissingFoursTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Sextet (六球统计) -->
+            <div class="tab-content" data-tab="sextet">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="4" r="2.5"/><circle cx="5.5" cy="9" r="2.5"/><circle cx="18.5" cy="9" r="2.5"/><circle cx="5.5" cy="15" r="2.5"/><circle cx="18.5" cy="15" r="2.5"/><circle cx="12" cy="20" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h2 class="section-title">六球统计</h2>
+                </div>
+
+                <div class="stats-summary">
+                    <span class="stats-summary-label">基于全部</span>
+                    <span class="stats-summary-value" id="statSextetTotal">-</span>
+                    <span class="stats-summary-label">期历史数据</span>
+                    <span class="stats-summary-dot">·</span>
+                    <span class="stats-summary-label">C(33,6) 共</span>
+                    <span class="stats-summary-value" id="statSextetPossible">-</span>
+                    <span class="stats-summary-label">种可能</span>
+                </div>
+
+                <div class="computing-indicator" id="sextetComputingIndicator">
+                    <div class="loading-spinner"></div>
+                    <span>正在计算 C(33,6) 所有组合，请稍候…</span>
+                </div>
+
+                <div class="missing-3ball-summary">
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">C(33,6) 总组合数</span>
+                        <span class="missing-3ball-value" id="statSextetAll">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">已出现组合数</span>
+                        <span class="missing-3ball-value" id="statSextetSeen">-</span>
+                    </div>
+                    <div class="missing-3ball-stat">
+                        <span class="missing-3ball-label">从未出现组合数</span>
+                        <span class="missing-3ball-value" id="statSextetMissing">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card wide-card">
+                    <div class="freq-card-title"><span class="dot red"></span>六个红球组合出现次数 <span class="freq-card-sub">Top 100</span></div>
+                    <table class="freq-table sextet-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>次数</th>
+                                <th>频率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="freqSextetTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="stat-card wide-card missing-combos-card">
+                    <div class="freq-card-title">
+                        <span class="dot missing"></span>从未出现的六个红球组合 <span class="freq-card-sub" id="sextetMissingCount">-</span>
+                    </div>
+                    <div class="missing-combos-grid" id="sextetMissingCombosGrid"></div>
+                </div>
+
+                <div class="stat-card wide-card missing-fives-card">
+                    <div class="freq-card-title">
+                        <span class="dot red"></span>从未出现六球组合中的5球组合 <span class="freq-card-sub">Top 100（按在缺失组合中的出现次数）</span>
+                    </div>
+                    <table class="freq-table missing-fives-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>号码</th>
+                                <th>出现次数</th>
+                                <th>占比</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sextetMissingFivesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-copyright">© 2025 Double Color Ball AI. Powered by Advanced LLMs.</p>
+                <p class="footer-disclaimer">仅供娱乐与统计分析，请理性购彩</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/data-loader.js?v=20260802e"></script>
+    <script src="js/components.js?v=20260802e"></script>
+    <script src="js/app.js?v=20260802e"></script>
+</body>
+</html>
